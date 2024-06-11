@@ -1,5 +1,6 @@
 import User from "../models/users.models.js"
 import OTP from "../models/otp.models.js"
+import jwt from 'jsonwebtoken';
 
 //signup user
 export const signupUser = async(req , res) => {
@@ -72,4 +73,41 @@ export const generateOTP = async(req , res) => {
             error:error.message
         })
     }
+}
+
+
+//login user
+export const loginUser = async(req , res) => {
+    //here we will generate a token 
+    const {rollNumber , mobileNumber} = req.body
+    try {
+        const user = await User.find({rollNumber:rollNumber, mobileNumber:mobileNumber})
+        console.log('userID:' , user[0]._id)
+        //check whether there is something in the user array
+        if(user.length == 0){
+            res.staus(400).json({
+                message:'Incorrect credentials'
+            })
+        }else{
+            //generate a token 
+            const token = jwt.sign({"user_id":user[0]._id,"rollNumber":rollNumber} , process.env.JWT_SECRET , {
+                expiresIn: '7d'
+            })
+
+            //set the token in the cookies
+            res.cookie('token' , token , {
+                httpOnly: true,
+                sameSite:'strict',
+            })
+            res.status(200).json({
+                message:'Logged in successfull',
+                token:token
+            })
+        }
+    } catch (error) {
+        res.status(400).json({
+            error:error.message
+        })
+    }
+
 }
