@@ -25,6 +25,15 @@ export default {
         'sm-768': '768px',
         'sm-820': '820px',
       },
+      colors: {
+        customPurple: '#9691E9',
+      },
+      borderRadius: {
+        '4xl': '2rem',    // Example: 32px
+        '5xl': '2.5rem',  // Example: 40px
+        '6xl': '3rem',    // Example: 48px
+        'extra-large': '5rem', // Custom large border radius (80px)
+      },
     },
   },
   plugins: [
