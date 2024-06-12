@@ -16,6 +16,13 @@ export default {
       fontFamily: {
         montserrat: ['Montserrat', 'sans-serif'],
       },
+      boxShadow: {
+        'custom-gray': '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06)',
+      },
+      screens: {
+        'sm-375': '375px',
+        'sm-410': '410px',
+      },
     },
   },
   plugins: [
