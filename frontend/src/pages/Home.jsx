@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
-import { FaArrowRight } from "react-icons/fa";
+import Footer from '../components/Footer'
 import ticket from '../assets/realistic-ticket-mockup-design.png'
 import singleTicket from '../assets/two-old-movie-tickets-isolated.png'
 import oldTicket from '../assets/old-used-brown-torn-ticket-stub-isolated.png'
@@ -8,6 +8,8 @@ import oldTicket from '../assets/old-used-brown-torn-ticket-stub-isolated.png'
 import { useSelector , useDispatch} from "react-redux";
 import { useEffect , useRef } from "react";
 import { closeModal } from "../slice/modal";
+import AboutUs from "../components/AboutUs";
+import ContactUs from "../components/ContactUs";
 
 const Home = () => {
   const headerModal = useSelector((state)=>state.modal.headerModal)
@@ -68,13 +70,20 @@ const Home = () => {
             }
           </div>
           <div>
-            <img src={ticket} alt="ticket image" className="sm-375:w-[300px] sm-375:[300px] sm-410:w-[400px] sm-410:h-[400px] 2xl:w-[500px] 2xl:h-[500px] z-20"/>
+            <img src={ticket} alt="ticket image" className="sm-375:w-[300px] sm-375:[300px] sm-410:w-[400px] sm-410:h-[400px] sm-768:w-[500px] sm-768:h-[500px] sm-820:w-[600px] sm-820:h-[600px] lg:w-[400px] lg:h-[400px] 2xl:w-[700px] 2xl:h-[700px] z-20"/>
           </div>
         </div>
         <div className="absolute bottom-[-70px] lg:bottom-[-140px] text-white opacity-55">
           <img src={oldTicket} alt="ticket image" className="w-[200px] h-[133px] lg:w-[400px] lg:h-[266px]"/>
         </div>
         </div>
+        <div className="mt-16 lg:mt-28" id='about'>
+          <AboutUs />
+        </div>
+        <div className="mt-16 lg:mt-20" id='contact'>
+          <ContactUs />
+        </div>
+        <Footer />
     </>
   );
 }

@@ -22,6 +22,8 @@ export default {
       screens: {
         'sm-375': '375px',
         'sm-410': '410px',
+        'sm-768': '768px',
+        'sm-820': '820px',
       },
     },
   },
