@@ -99,8 +99,16 @@ export const loginUser = async(req , res) => {
                 sameSite:'strict',
             })
             res.status(200).json({
-                message:'Log in successfull',
-                token:token
+                _id:user[0]._id,
+                name:user[0].name,
+                mobileNumber:user[0].mobileNumber,
+                degree:user[0].degree,
+                rollNumber:user[0].rollNumber,
+                isAdmin:user[0].isAdmin,
+                passingYear:user[0].passingYear,
+                credits:user[0].credits
+
+
             })
         }
     } catch (error) {

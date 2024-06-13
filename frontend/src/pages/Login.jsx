@@ -6,11 +6,18 @@ import { useLoginUserMutation } from '../slice/userSlice'
 import {toast} from 'react-toastify'
 import {useNavigate} from 'react-router-dom'
 import {Vortex} from 'react-loader-spinner'
+//setting up some details in the local storage for now and later will be moving on to cookies
+import { setCredentials } from '../slice/authSlice'
+import { useDispatch , useSelector } from 'react-redux'
+
 
 
 const Login = () => {
     //usenavigate instance
     const navigate = useNavigate()
+    //useDispatch instance
+    const dispatch = useDispatch()
+    const {userInfo} = useSelector((state)=>state.auth)
 
     //component level states
     const [rollNumber , setRollNumber] = useState('')
@@ -25,7 +32,8 @@ const Login = () => {
                 mobileNumber:Number(mobileNumber),
                 rollNumber:rollNumber
             }).unwrap()
-            toast.success(`${response.message}`, {
+            dispatch(setCredentials({...response}))
+            toast.success('Logg In successfull', {
                 autoClose:2000
             })
             navigate('/sportslisting')

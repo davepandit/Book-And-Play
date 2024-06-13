@@ -7,13 +7,15 @@ import oldTicket from '../assets/old-used-brown-torn-ticket-stub-isolated.png'
 //getting the state of the modal from the global state
 import { useSelector , useDispatch} from "react-redux";
 import { useEffect , useRef } from "react";
-import { closeModal } from "../slice/modal";
+import { closeModal } from "../slice/modalSlice";
 import AboutUs from "../components/AboutUs";
 import ContactUs from "../components/ContactUs";
 import { Link } from "react-router-dom";
 
 const Home = () => {
   const headerModal = useSelector((state)=>state.modal.headerModal)
+  //getting the userinfo from the global state
+  const {userInfo} = useSelector((state)=>state.auth)
   //dispatch instance
   const dispatch = useDispatch()
   //reference variable
@@ -65,7 +67,14 @@ const Home = () => {
                     <span className='font-bold text-base'>My Bookings🎫</span>
                     <span className='font-bold text-base'>About Us</span>
                     <span className='font-bold text-base'>Contact Us</span>
-                    <Link to='/signup'><button className='font-bold text-base'>Sign Up</button></Link>
+                    {
+                      userInfo ? (
+                        <span className='font-bold text-base'>{userInfo.name.toUpperCase()}</span>
+                      ) : (
+                        <Link to='/signup'><button className='font-bold text-base'>Sign Up</button></Link>
+                      )
+                    }
+                    
             </div>
             : null
             }

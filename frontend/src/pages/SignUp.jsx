@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import signupImage from '../assets/3d-business-young-man-in-vr-glasses-sitting-at-his-desk-1.png'
+import signupImage from '../assets/3d-hygge-isometric-view-of-young-girl-and-man-working-at-office-desk-1.png'
 //importing the hooks from the RTK query 
 import { useGenerateOTPMutation , useSignupUserMutation } from '../slice/userSlice'
 import { toast } from 'react-toastify'
@@ -74,7 +74,7 @@ const SignUp = () => {
     <>
         <div className=' lg:bg-customPurple w-full h-screen flex justify-center lg:justify-between lg:pl-11 lg:pr-11 sm-2000:pl-28 sm-2000:pr-28 items-center'>
             {/* left section  */}
-            <img src={signupImage} alt="signupimage" className='w-[400px] h-[552px] 2xl:w-[600px] 2xl:h-[828px] hidden lg:block'/>
+            <img src={signupImage} alt="signupimage" className='w-[400px] h-[404px] 2xl:w-[600px] 2xl:h-[607px] hidden lg:block'/>
             {/* right section  */}
             <div className='lg:absolute lg:right-0 lg:w-1/2 lg:bg-white text-black lg:rounded-l-extra-large h-screen flex flex-col justify-center items-center gap-5'>
                 <span className='font-bold text-3xl whitespace-nowrap'>
