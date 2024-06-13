@@ -17,8 +17,15 @@ const userSlice = apiSlice.injectEndpoints({
                 body:data
                 //from the frontend should send otp , mobile number and all can check the controller for that purpose
             })
+        }),
+        loginUser:builder.mutation({
+            query:(data)=>({
+                url:'/users/login',
+                method:'POST',
+                body:data
+            })
         })
     })
 })
 
-export const {useGenerateOTPMutation , useSignupUserMutation} = userSlice
+export const {useGenerateOTPMutation , useSignupUserMutation , useLoginUserMutation} = userSlice

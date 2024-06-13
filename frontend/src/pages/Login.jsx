@@ -1,15 +1,39 @@
 import React from 'react'
 import { useState } from 'react'
 import loginImage from '../assets/3d-hygge-isometric-view-of-colleagues-having-meeting.png'
+//import hooks provided by  rtk query 
+import { useLoginUserMutation } from '../slice/userSlice'
+import {toast} from 'react-toastify'
+import {useNavigate} from 'react-router-dom'
+import {Vortex} from 'react-loader-spinner'
+
 
 const Login = () => {
+    //usenavigate instance
+    const navigate = useNavigate()
 
     //component level states
     const [rollNumber , setRollNumber] = useState('')
     const [mobileNumber , setMobileNumber] = useState()
 
+    const [loginUser , {isLoading:loginLoading}] = useLoginUserMutation()
+
     const handleSubmit = async(e) => {
         e.preventDefault()
+        try {
+            const response = await loginUser({
+                mobileNumber:Number(mobileNumber),
+                rollNumber:rollNumber
+            }).unwrap()
+            toast.success(`${response.message}`, {
+                autoClose:2000
+            })
+            navigate('/sportslisting')
+        } catch (error) {
+            toast.error(`${error.message}` , {
+                autoClose:2000
+            })
+        }
     }
   return (
     <>
@@ -28,7 +52,23 @@ const Login = () => {
                     <div class="mb-4 ">
                         <input type="number" id="mobileNumber" name='mobileNumber' class="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent" placeholder="mobileNumber" value={mobileNumber} onChange={(e)=>(setMobileNumber(e.target.value))}/>
                     </div>
+                    {
+                        loginLoading ? (
+                            <div className='flex justify-center items-center opacity-60'>
+                                <Vortex
+                                visible={true}
+                                height="80"
+                                width="80"
+                                ariaLabel="vortex-loading"
+                                wrapperStyle={{}}
+                                wrapperClass="vortex-wrapper"
+                                colors={['red', 'green', 'blue', 'yellow', 'orange', 'purple']}
+                                />
+                            </div>
+                        ) : null
+                    }
                     <div className='flex flex-col lg:flex-row justify-center items-center gap-3'>
+                        {/* allow the user to click the button only when he has entered both the fields  */}
                         <button className='bg-customBlue pl-11 pr-11 pt-2 pb-2 rounded-xl text-white font-bold hover:opacity-55 duration-300 ease-in-out' type='submit'>
                             Log In
                         </button>

@@ -82,7 +82,6 @@ export const loginUser = async(req , res) => {
     const {rollNumber , mobileNumber} = req.body
     try {
         const user = await User.find({rollNumber:rollNumber, mobileNumber:mobileNumber})
-        console.log('userID:' , user[0]._id)
         //check whether there is something in the user array
         if(user.length == 0){
             res.staus(400).json({
@@ -100,7 +99,7 @@ export const loginUser = async(req , res) => {
                 sameSite:'strict',
             })
             res.status(200).json({
-                message:'Logged in successfull',
+                message:'Log in successfull',
                 token:token
             })
         }
