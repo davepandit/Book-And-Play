@@ -24,9 +24,11 @@ export default {
         'sm-410': '410px',
         'sm-768': '768px',
         'sm-820': '820px',
+        'sm-2000': '2000px'
       },
       colors: {
         customPurple: '#9691E9',
+        customBlue: '#78d5fa'
       },
       borderRadius: {
         '4xl': '2rem',    // Example: 32px

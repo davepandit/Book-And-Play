@@ -72,7 +72,7 @@ const SignUp = () => {
     }
   return (
     <>
-        <div className=' lg:bg-customPurple w-full h-screen flex justify-center lg:justify-between lg:pl-11 lg:pr-11 max-w-[2000px] mx-auto items-center'>
+        <div className=' lg:bg-customPurple w-full h-screen flex justify-center lg:justify-between lg:pl-11 lg:pr-11 sm-2000:pl-28 sm-2000:pr-28 items-center'>
             {/* left section  */}
             <img src={signupImage} alt="signupimage" className='w-[400px] h-[552px] 2xl:w-[600px] 2xl:h-[828px] hidden lg:block'/>
             {/* right section  */}
