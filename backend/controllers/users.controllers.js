@@ -7,9 +7,8 @@ export const signupUser = async(req , res) => {
     const {otp , name , mobileNumber , degree , rollNumber , passingYear} = req.body
     try {
         //check whether the entered otp is there in the otp schema or not
-        const otpExists = await OTP.find({otp:Number(otp)})
+        const otpExists = await OTP.find({otp:Number(otp) , mobileNumber:Number(mobileNumber)})
         //i dont know what will happen when 2 req are made at the same time but for now it works
-        await OTP.findOneAndDelete({ otp: Number(otp) });
         if(otpExists.length == 0){
             res.status(400).json({
                 message:'Incorrect OTP'
@@ -40,7 +39,7 @@ export const signupUser = async(req , res) => {
             
         
     } catch (error) {
-        req.status(400).json({
+        res.status(400).json({
             error:error.message
         })
     }
@@ -56,7 +55,8 @@ export const generateOTP = async(req , res) => {
     try {
         //save the otp to the database
         const generatedOTP = await OTP.create({
-            otp:otp
+            otp:otp,
+            mobileNumber:Number(mobileNumber)
         })
         if(!generateOTP){
             res.status(400).json({

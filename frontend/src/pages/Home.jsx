@@ -10,6 +10,7 @@ import { useEffect , useRef } from "react";
 import { closeModal } from "../slice/modal";
 import AboutUs from "../components/AboutUs";
 import ContactUs from "../components/ContactUs";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const headerModal = useSelector((state)=>state.modal.headerModal)
@@ -64,7 +65,7 @@ const Home = () => {
                     <span className='font-bold text-base'>My Bookings🎫</span>
                     <span className='font-bold text-base'>About Us</span>
                     <span className='font-bold text-base'>Contact Us</span>
-                    <button className='font-bold text-base'>Sign Up</button>
+                    <Link to='/signup'><button className='font-bold text-base'>Sign Up</button></Link>
             </div>
             : null
             }
