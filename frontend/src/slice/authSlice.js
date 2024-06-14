@@ -15,10 +15,14 @@ const authSlice = createSlice({
             state.userInfo = action.payload
             //settings things into the local storage only allows to get started from where i left 
             localStorage.setItem('userInfo', JSON.stringify(action.payload))
+        },
+        removeCredentials:(state , action)=>{
+            state.userInfo = null
+            localStorage.removeItem('userInfo')
         }
     }
 })
 
 
-export const {setCredentials} = authSlice.actions
+export const {setCredentials , removeCredentials} = authSlice.actions
 export default authSlice.reducer

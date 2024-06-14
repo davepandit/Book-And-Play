@@ -4,7 +4,7 @@ import loginImage from '../assets/3d-hygge-isometric-view-of-colleagues-having-m
 //import hooks provided by  rtk query 
 import { useLoginUserMutation } from '../slice/userSlice'
 import {toast} from 'react-toastify'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate , Link} from 'react-router-dom'
 import {Vortex} from 'react-loader-spinner'
 //setting up some details in the local storage for now and later will be moving on to cookies
 import { setCredentials } from '../slice/authSlice'
@@ -33,7 +33,7 @@ const Login = () => {
                 rollNumber:rollNumber
             }).unwrap()
             dispatch(setCredentials({...response}))
-            toast.success('Logg In successfull', {
+            toast.success('Log In successfull', {
                 autoClose:2000
             })
             navigate('/sportslisting')
@@ -80,6 +80,7 @@ const Login = () => {
                         <button className='bg-customBlue pl-11 pr-11 pt-2 pb-2 rounded-xl text-white font-bold hover:opacity-55 duration-300 ease-in-out' type='submit'>
                             Log In
                         </button>
+                        <span><span className='font-bold text-sm opacity-55'>Don't have an account </span><Link to='/signup'><span className='underline hover:cursor-pointer hover:opacity-55'>Sign In</span></Link></span>
                     </div>
                 </form>
             

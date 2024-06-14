@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const modalSlice = createSlice({
     name: 'modal',
     initialState: {
-        headerModal: false
+        headerModal: false,
+        profileModal: false
     },
     reducers:{
         openModal:(state , action)=>{
@@ -11,9 +12,15 @@ const modalSlice = createSlice({
         },
         closeModal:(state , action)=>{
             state.headerModal = false
+        },
+        openProfileDropdown:(state , action)=>{
+            state.profileModal = true
+        },
+        closeProfileDropdown:(state , action)=>{
+            state.profileModal = false
         }
     }
 })
 
-export const {openModal , closeModal} = modalSlice.actions
+export const {openModal , closeModal , openProfileDropdown , closeProfileDropdown} = modalSlice.actions
 export default modalSlice.reducer

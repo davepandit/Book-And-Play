@@ -11,15 +11,25 @@ import { closeModal } from "../slice/modalSlice";
 import AboutUs from "../components/AboutUs";
 import ContactUs from "../components/ContactUs";
 import { Link } from "react-router-dom";
+import creditsImage from '../assets/3d-business-pile-of-five-golden-dollar-coins.png'
+//import thr logout hook provided by the RTK query 
+import { useLogoutUserMutation } from "../slice/userSlice";
+import {toast} from 'react-toastify'
+//remove user credentials from auth to remove from the global state and the local storage
+import { removeCredentials } from "../slice/authSlice";
 
 const Home = () => {
   const headerModal = useSelector((state)=>state.modal.headerModal)
+  //get the profileModal from the global state 
+  const profileModal = useSelector((state)=>state.modal.profileModal)
   //getting the userinfo from the global state
   const {userInfo} = useSelector((state)=>state.auth)
   //dispatch instance
   const dispatch = useDispatch()
   //reference variable
   const modalRef = useRef(null)
+  //lout hook
+  const [logoutUser , {isLoading:logoutLoading}] = useLogoutUserMutation()
 
   //functionality to close the modal when clicked outside it 
   const handleClickOutsideModal = (event) => {
@@ -28,6 +38,23 @@ const Home = () => {
       dispatch(closeModal());
     }
   };
+
+  //logout functionality
+  const handleLogout = async() => {
+    try {
+      const response = await logoutUser().unwrap()
+      //remove from the global state and the local storage
+      dispatch(removeCredentials())
+      //succesfull log out and userInfo deleted from the global state and the localstorage
+      toast.success(`${response.message}` , {
+        autoClose:2000
+      })
+    } catch (error) {
+      toast.error(`${error.message}`,{
+        autoClose:2000
+      })
+    }
+  }
 
   useEffect(() => {
     // Add event listener when modal is open
@@ -69,14 +96,29 @@ const Home = () => {
                     <span className='font-bold text-base'>Contact Us</span>
                     {
                       userInfo ? (
-                        <span className='font-bold text-base'>{userInfo.name.toUpperCase()}</span>
+                        <div className="flex flex-col gap-5 justify-center items-center">
+                          <span className='font-bold text-base'>{userInfo.name.toUpperCase()}</span>
+                          <span className="font-bold text-base" onClick={handleLogout}>
+                            Logout
+                          </span>
+                        </div>
                       ) : (
-                        <Link to='/signup'><button className='font-bold text-base'>Sign Up</button></Link>
+                        <Link to='/signup'><div className="flex justify-center items-center"><button className='font-bold text-base'>Sign Up</button></div></Link>
                       )
                     }
                     
             </div>
             : null
+            }
+            {
+              profileModal && userInfo ? (
+                <div className='hidden lg:flex absolute top-[-1px] right-[-40px] bg-red-500 text-white w-[200px] flex-col gap-5 z-50 rounded-lg items-center justify-center pl-3 pr-3 pt-2 pb-2 shadow-gray-900 shadow-md'>
+                  <span className='font-bold text-sm hover:cursor-pointer hover:opacity-55'>Profile</span>
+                  <span className='font-bold text-sm hover:cursor-pointer hover:opacity-55' onClick={handleLogout}>Logout</span>
+                  <span className='font-bold text-sm hover:opacity-55'>{userInfo.credits}
+                  <img src={creditsImage} alt="img" className="w-[20px] h-[21px] inline-block ml-1"/></span>
+                </div>
+              ) : null
             }
           </div>
           <div>

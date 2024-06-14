@@ -81,11 +81,11 @@ const SignUp = () => {
                     Set up your profile😎
                 </span>
                 <form onSubmit={handleSubmit}>
-                    <div class="mb-4 ">
-                        <input type="text" id="name" name='name' class="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Name" value={name} onChange={(e)=>(setName(e.target.value))}/>
+                    <div className="mb-4 ">
+                        <input type="text" id="name" name='name' className="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Name" value={name} onChange={(e)=>(setName(e.target.value))}/>
                     </div>
-                    <div class="mb-4 relative inline-block w-[350px] lg:w-[400px] xl:w-[500px] ">
-                        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent w-full" name='passingYear' value={passingYear} onChange={(e)=>(setPassingYear(e.target.value))}>
+                    <div className="mb-4 relative inline-block w-[350px] lg:w-[400px] xl:w-[500px] ">
+                        <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent w-full" name='passingYear' value={passingYear} onChange={(e)=>(setPassingYear(e.target.value))}>
                             <option>2024</option>
                             <option>2025</option>
                             <option>2026</option>
@@ -94,25 +94,25 @@ const SignUp = () => {
                         </select>
                         
                     </div>
-                    <div class="mb-4 ">
-                        <input type="text" id="rollnumber" name='rollNumber' class="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="rollNumber" value={rollNumber} onChange={(e)=>(setRollNumber(e.target.value))}/>
+                    <div className="mb-4 ">
+                        <input type="text" id="rollnumber" name='rollNumber' className="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="rollNumber" value={rollNumber} onChange={(e)=>(setRollNumber(e.target.value))}/>
                     </div>
-                    <div class="mb-4 relative inline-block w-[350px] lg:w-[400px] xl:w-[500px]">
-                        <select class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent w-full" name='degree' value={degree} onChange={(e)=>(setDegree(e.target.value))}>
+                    <div className="mb-4 relative inline-block w-[350px] lg:w-[400px] xl:w-[500px]">
+                        <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent w-full" name='degree' value={degree} onChange={(e)=>(setDegree(e.target.value))}>
                             <option>B.Tech</option>
                             <option>MBA</option>
                             <option>PHD</option>
                             <option>M.Tech</option>
                         </select>
                     </div>
-                    <div class="mb-4 ">
-                        <input type="number" id="mobileNumber" name='mobileNumber' class="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="mobileNumber" value={mobileNumber} onChange={(e)=>(setMobileNumber(e.target.value))}/>
+                    <div className="mb-4 ">
+                        <input type="number" id="mobileNumber" name='mobileNumber' className="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="mobileNumber" value={mobileNumber} onChange={(e)=>(setMobileNumber(e.target.value))}/>
                     </div>
                     {
                         showOTPBox ? (
-                            <div class="mb-4 flex flex-col gap-3">
+                            <div className="mb-4 flex flex-col gap-3">
                                 <label htmlFor="otp" className='font-bold opacity-55'>Enter your OTP:</label>
-                                <input type="number" id="otp" name='otp' class="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="otp" value={otp} onChange={(e)=>(setOTP(e.target.value))}/>
+                                <input type="number" id="otp" name='otp' className="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="otp" value={otp} onChange={(e)=>(setOTP(e.target.value))}/>
                             </div>
                         ) : null
                     }
