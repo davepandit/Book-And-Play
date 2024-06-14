@@ -37,8 +37,8 @@ const Header = () => {
         <div className='text-xl font-bold hover:cursor-pointer hover:opacity-55 duration-300 ease-in-out whitespace-nowrap'>
           BookAndPlay🚀
         </div>
-        <div className='flex gap-8 items-center'>
-          <span className='hidden lg:block hover:text-gray-400 duration-300 ease-in-out hover:cursor-pointer'>Events/Sports🏏</span>
+        <div className='flex gap-3 lg:gap-5 xl:gap-8 items-center'>
+          <Link to='/sportslisting'><span className='hidden lg:block hover:text-gray-400 duration-300 ease-in-out hover:cursor-pointer'>Events/Sports🏏</span></Link>
           <Link to='/mybookings'><span className='hidden lg:block hover:text-gray-400 duration-300 ease-in-out hover:cursor-pointer'>My Bookings🎫</span></Link>
           <a href="#about"><span className='hidden lg:block hover:text-gray-400 duration-300 ease-in-out hover:cursor-pointer'>About Us</span></a>
           <a href="#contact"><span className='hidden lg:block hover:text-gray-400 duration-300 ease-in-out hover:cursor-pointer'>Contact Us</span></a>

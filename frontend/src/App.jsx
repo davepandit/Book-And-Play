@@ -4,6 +4,7 @@ import SignUp from './pages/SignUp'
 import Login from './pages/Login'
 import Private from './components/Private'
 import MyBookings from './pages/MyBookings'
+import SportsListing from './pages/SportsListing'
 import {Routes , Route} from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,10 +19,11 @@ function App() {
         <Route path='/home' element={<Home />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/sportslisting' element={<SportsListing />} />
 
         {/* here goes the private route  */}
         <Route path='' element={<Private />}>
-        <Route path='/mybookings' element={<MyBookings />}/>
+          <Route path='/mybookings' element={<MyBookings />}/>
         </Route>
       </Routes>
       <ToastContainer />

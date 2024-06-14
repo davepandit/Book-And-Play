@@ -91,9 +91,9 @@ const Home = () => {
             {headerModal ? 
             <div className='absolute top-[-27px] h-[300px] right-[11px] bg-red-500 text-white w-[200px] flex flex-col gap-5 z-50 rounded-lg items-center justify-center pl-3 pr-3 pt-2 pb-2 shadow-gray-900 shadow-md' ref={modalRef}>
                     <span className='font-bold text-base'>Events/Sports🏏</span>
-                    <span className='font-bold text-base'>My Bookings🎫</span>
-                    <span className='font-bold text-base'>About Us</span>
-                    <span className='font-bold text-base'>Contact Us</span>
+                    <Link to='/mybookings'><div className="flex jsutify-center items-center"></div><span className='font-bold text-base block'>My Bookings🎫</span></Link>
+                    <a href="#about"><div className="flex jsutify-center items-center"><span className='font-bold text-base block' >About Us</span></div></a>
+                    <a href="#contact"><div className="flex jsutify-center items-center"><span className='font-bold text-base block'>Contact Us</span></div></a>
                     {
                       userInfo ? (
                         <div className="flex flex-col gap-5 justify-center items-center">

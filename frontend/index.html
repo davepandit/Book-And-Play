@@ -8,6 +8,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <title>Vite + React</title>
+
+    <!-- for input boxes some styling -->
+    <style>
+      /* Chrome, Safari, Edge, Opera */
+      input[type=number]::-webkit-outer-spin-button,
+      input[type=number]::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+      }
+
+      /* Firefox */
+      input[type=number] {
+          -moz-appearance: textfield;
+      }
+  </style>
   </head>
   <body class="font-montserrat">
     <div id="root"></div>
