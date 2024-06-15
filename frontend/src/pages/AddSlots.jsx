@@ -65,7 +65,7 @@ const AddSlots = () => {
                         <div>
                             <label htmlFor="date" className='font-bold opacity-55'>Enter Today's date:</label>
                             <div className="mb-4 ">
-                                <input type="date" id="date" name='date' className="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent" placeholder="rollnumber" value={date} onChange={(e)=>(setDate(e.target.value))}/>
+                                <input type="date" id="date" name='date' className="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent" value={date} onChange={(e)=>(setDate(e.target.value))}/>
                             </div>
                         </div>
                         <div className='flex flex-col'>

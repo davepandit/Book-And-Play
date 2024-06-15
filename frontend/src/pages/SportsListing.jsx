@@ -2,8 +2,28 @@ import React from 'react'
 import heroImage from '../assets/pexels-robert-hernandez-villalta-35224-128457.jpg'
 import badmintonImage from '../assets/3d-fluency-shuttlecock.png'
 import ttImage from '../assets/3d-fluency-ping-pong.png'
+import {useNavigate} from 'react-router-dom'
+import { useState } from 'react'
+import { toast } from 'react-toastify'
 
 const SportsListing = () => {
+    const [date , setDate] = useState()
+    const navigate = useNavigate()
+    const handleBadmintonAvailbility = () => {
+        navigate(`/availibility?game=Badminton&date=${date}`)
+    }
+
+    const handleTTAvailbility = () => {
+        navigate(`/availibility?game=Table Tennis&date=${date}`)
+    }
+
+    //form handler 
+    const handleSubmit = async(e) => {
+        e.preventDefault()
+        toast.success('Date added' , {
+            autoClose:2000
+        })
+    }
   return (
     <>
         <div className='bg-black'>
@@ -17,6 +37,25 @@ const SportsListing = () => {
         </div>
         {/* sports listing  */}
         <div className='flex flex-col gap-5 mt-11 justify-center items-center mb-11'>
+            {/* new section added  */}
+            <div className='text-3xl lg:text-5xl 2xl:text-7xl text-center font-bold'>
+              Search <span className='text-green-400'>slots</span> by date
+            </div>
+            {/* here goes the input box for selecting date */}
+            <form onSubmit={handleSubmit}>
+              <div className='flex flex-col gap-3 justify-center items-center'>
+                  <label htmlFor="date" className='font-bold opacity-55'>Enter Today's date:</label>
+                  <div className="mb-4 ">
+                      <input type="date" id="date" name='date' className="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent" value={date} onChange={(e)=>(setDate(e.target.value))}/>
+                  </div>
+                  <div>
+                    <button className='bg-green-400 pl-11 pr-11 pt-2 pb-2 rounded-xl text-white font-bold hover:opacity-55 duration-300 ease-in-out' type='submit'>
+                      Submit
+                    </button>
+                  </div>
+              </div>
+
+            </form>
             <div className='rounded-xl flex w-[320px] sm-410:w-[375px] sm-768:w-[700px] h-auto gap-3 lg:relative items-center border border-gray-300 shadow-lg'>
                 {/* image section  */}
                 <div className='flex-shrink-0 p-2 border-r border-gray-300'>
@@ -27,7 +66,7 @@ const SportsListing = () => {
                         Badminton
                     </div>
                     <div className='flex-grow overflow-hidden rounded-r-xl p-2 md:absolute md:right-[40px] sm-820:right-[80px]'>
-                        <button className="text-sm 2xl:text-lg 2xl:pl-6 2xl:pr-6 2xl:pt-3 2xl:pb-3 hover:bg-gray-300 duration-300 ease-in-out bg-black text-white font-bold rounded-3xl pl-4 pr-4 pt-2 pb-2">See Availability</button> 
+                        <button className="text-sm 2xl:text-lg 2xl:pl-6 2xl:pr-6 2xl:pt-3 2xl:pb-3 hover:bg-gray-300 duration-300 ease-in-out bg-black text-white font-bold rounded-3xl pl-4 pr-4 pt-2 pb-2" onClick={handleBadmintonAvailbility}>See Availability</button> 
                     </div>
                 </div>
             </div>
@@ -42,7 +81,7 @@ const SportsListing = () => {
                         Table Tennis
                     </div>
                     <div className='flex-grow overflow-hidden rounded-r-xl p-2 md:absolute md:right-[40px] sm-820:right-[80px]'>
-                        <button className="text-sm 2xl:text-lg 2xl:pl-6 2xl:pr-6 2xl:pt-3 2xl:pb-3 hover:bg-gray-300 duration-300 ease-in-out bg-black text-white font-bold rounded-3xl pl-4 pr-4 pt-2 pb-2">See Availability</button> 
+                        <button className="text-sm 2xl:text-lg 2xl:pl-6 2xl:pr-6 2xl:pt-3 2xl:pb-3 hover:bg-gray-300 duration-300 ease-in-out bg-black text-white font-bold rounded-3xl pl-4 pr-4 pt-2 pb-2" onClick={handleTTAvailbility}>See Availability</button> 
                     </div>
                 </div>
             </div>

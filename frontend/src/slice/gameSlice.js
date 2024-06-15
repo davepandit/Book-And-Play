@@ -9,8 +9,19 @@ const gameSlice = apiSlice.injectEndpoints({
                 method:'POST',
                 body:data
             })
+        }),
+        checkAvailiblity:builder.query({
+            query:({game , date})=>({
+                url:'/games/checkavailibility',
+                method:'GET',
+                params:{
+                    game,
+                    date
+                }
+                //for this name no need to make any state rather can directly take it from  the params in the url and can use the hook useSearchParams
+            })
         })
     })
 })
 
-export const {useAddSlotsMutation} = gameSlice
+export const {useAddSlotsMutation , useCheckAvailiblityQuery} = gameSlice

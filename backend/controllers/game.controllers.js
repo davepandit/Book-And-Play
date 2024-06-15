@@ -20,3 +20,33 @@ export const addSlotHandler = async(req , res) => {
         })
     }
 }
+
+//slots availibilty
+export const checkAvailibilityHandler = async(req , res) => {
+    const game = req.query.game
+    const date = req.query.date
+    //the name will be taken from the query params 
+    console.log('date:',typeof(date))
+    console.log('name:' , typeof(game))
+    console.log('date:' , date)
+    console.log('name:' , game)
+    try {
+        //serach on the basis of date
+        const gameDoc = await Game.findOne({
+            date:date,
+            name:game
+        })
+        if(!gameDoc){
+            res.status(404).json({
+                message:'No slots found for the given date'
+            })
+        }else{
+            res.status(200).json(gameDoc)
+            //remember to access the slots from the gameDoc in the frontend
+        }
+    } catch (error) {
+        res.status(400).json({
+            message:error.message
+        })
+    }
+}

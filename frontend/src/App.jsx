@@ -7,6 +7,7 @@ import Admin from './components/Admin'
 import MyBookings from './pages/MyBookings'
 import AddSlots from './pages/AddSlots'
 import SportsListing from './pages/SportsListing'
+import Availibility from './pages/Availibility'
 import Error from './pages/Error'
 import {Routes , Route} from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
@@ -28,6 +29,7 @@ function App() {
         {/* here goes the private route  */}
         <Route path='' element={<Private />}>
           <Route path='/mybookings' element={<MyBookings />}/>
+          <Route path='/availibility' element={<Availibility />}/>
         </Route>
 
         {/* here are the admin routes  */}

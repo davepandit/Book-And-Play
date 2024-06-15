@@ -91,7 +91,7 @@ const Home = () => {
             Get in the Game: <br />Book Your <br />Sports Session Effortlessly!
             </div>
             <div className="mt-3 sm-410:mt-9 2xl:mt-16 flex gap-3 items-center justify-center lg:justify-start">
-              <button className="text-sm 2xl:text-lg 2xl:pl-6 2xl:pr-6 2xl:pt-3 2xl:pb-3 hover:bg-gray-300 duration-300 ease-in-out bg-white text-black rounded-3xl pl-4 pr-4 pt-2 pb-2">Grab Your</button>
+              <Link to='/sportslisting'><button className="text-sm 2xl:text-lg 2xl:pl-6 2xl:pr-6 2xl:pt-3 2xl:pb-3 hover:bg-gray-300 duration-300 ease-in-out bg-white text-black rounded-3xl pl-4 pr-4 pt-2 pb-2">Grab Your</button></Link>
               <img src={singleTicket} alt="ticket image" className="w-[100px] h-[66px] 2xl:w-[150px] 2xl:h-[100px]"/>
             </div>
             {/* conditionaly to be rendered  */}
@@ -102,19 +102,27 @@ const Home = () => {
                     <a href="#about"><span className='font-bold text-base block' >About Us</span></a>
                     <a href="#contact"><span className='font-bold text-base block'>Contact Us</span></a>
                     {
-                      userInfo ? (
+                      userInfo && !userInfo.isAdmin ? (
                         <div className="flex flex-col gap-3 justify-center items-center">
                           <span className='font-bold text-base'>{userInfo.name.toUpperCase()}</span>
                           <span className="font-bold text-base" onClick={handleLogout}>
                             Logout
                           </span>
-                          <span className="font-bold text-base" onClick={handleAddSlots}>
-                            Add slots
+                          <span className="font-bold text-base">
+                            {userInfo.credits}
+                            <img src={creditsImage} alt="img" className="w-[20px] h-[21px] inline-block ml-1"/>
                           </span>
                         </div>
                       ) : (
                         <Link to='/signup'><div className="flex justify-center items-center"><button className='font-bold text-base'>Sign Up</button></div></Link>
                       )
+                    }
+                    {
+                      userInfo && userInfo.isAdmin ? (
+                          <span className="font-bold text-base" onClick={handleAddSlots}>
+                            Add slots
+                          </span>
+                      ) : null
                     }
                     
             </div>
