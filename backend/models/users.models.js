@@ -25,7 +25,7 @@ const userSchema = mongoose.Schema({
     },
     isAdmin:{
         type:Boolean,
-        default:false
+        default:true
     },
     //this should also be a dropdown in the frontend
     passingYear:{

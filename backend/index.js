@@ -3,6 +3,7 @@ dotenv.config()
 import express from "express";
 import { connectToDatabase } from './database/database.js';
 import userRouter from './routes/users.routes.js'
+import gamesRouter from './routes/game.routes.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 
@@ -35,6 +36,7 @@ app.get('/' , (req , res)=>(
 
 //configs and middlewares
 app.use('/api/users' , userRouter)
+app.use('/api/games' , gamesRouter)
 
 //server code
 app.listen(port , ()=>{
