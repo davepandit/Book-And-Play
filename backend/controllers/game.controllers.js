@@ -25,11 +25,7 @@ export const addSlotHandler = async(req , res) => {
 export const checkAvailibilityHandler = async(req , res) => {
     const game = req.query.game
     const date = req.query.date
-    //the name will be taken from the query params 
-    console.log('date:',typeof(date))
-    console.log('name:' , typeof(game))
-    console.log('date:' , date)
-    console.log('name:' , game)
+    //the name and the game  name will be taken from the query params 
     try {
         //serach on the basis of date
         const gameDoc = await Game.findOne({
