@@ -1,12 +1,8 @@
 import mongoose from "mongoose";
-import User from "./users.models";
+import User from "./users.models.js";
 
 const bookingSchema = mongoose.Schema({
     sportName:{
-        type:String,
-        required:true
-    },
-    sportImage:{
         type:String,
         required:true
     },
@@ -25,7 +21,20 @@ const bookingSchema = mongoose.Schema({
     },
     reported:{
         type:Boolean,
-    }
+        default:false
+    },
+    slotNumber:{
+        type: String,
+        required:true
+    },
+    startTime: {
+        type: String,
+        required: true
+    },
+    endTime: {
+        type: String,
+        required: true
+    },
 },
 {
     timestamps:true

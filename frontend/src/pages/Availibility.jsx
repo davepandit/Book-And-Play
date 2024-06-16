@@ -53,7 +53,7 @@ const Availibility = () => {
             <div className='mt-11 flex flex-col gap-3 pl-11 pr-11 place-items-center'>
               {
                 availibilityData.slots.map((slot , index)=>(
-                  <Card slotNumber={slot.slotNumber} startTime={slot.startTime} endTime={slot.endTime} availableTickets={slot.availableTickets} key={index}/>
+                  <Card slotNumber={slot.slotNumber} startTime={slot.startTime} endTime={slot.endTime} availableTickets={slot.availableTickets} game={game} date={date} key={index}/>
                 ))
               }
             </div>
