@@ -1,16 +1,22 @@
 // this page is for admin 
 
 import React, { useState } from 'react'
-import { useGetallSlotsQuery , useMarkasReportedMutation } from '../slice/bookingSlice'
+import { useGetallSlotsQuery , useMarkasReportedMutation , useMarkNotReportedMutation } from '../slice/bookingSlice'
 import {Vortex} from 'react-loader-spinner'
 import verifiedImage from '../assets/ikigai-green-check-mark-in-a-circle.png'
+import notreportedImage from '../assets/jelly-red-rectangle-with-white-cross.png'
 import { toast } from 'react-toastify'
+import { setNewCredits } from '../slice/authSlice'
+import { useDispatch } from 'react-redux'
+
 
 
 
 const AllSlotsListing = () => {
   const {data:allSlotsData , isLoading:allSlotsLoading , refetch} = useGetallSlotsQuery()
   const [markasReported , {isLoading:reportedLoading}] = useMarkasReportedMutation()
+  const [markNotReported , {isLoading:notreportedLoading}] = useMarkNotReportedMutation()
+  const dispatch = useDispatch()
 
   //this method will mark the candidate as reported
   const handleReported = async(id) => {
@@ -19,6 +25,24 @@ const AllSlotsListing = () => {
         _id:id
       }).unwrap()
       refetch()
+      toast.success(`${response.message}` , {
+        autoClose:2000
+      })
+    } catch (error) {
+      toast.error(`${error.message}` , {
+        autoClose:2000
+      })
+    }
+  }
+
+  //not reported handler
+  const handleNotReported = async(id) => {
+    try {
+      const response = await markNotReported({
+        _id:id
+      }).unwrap()
+      refetch()
+      dispatch(setNewCredits(Number(response.updatedCreditsUser.credits)))
       toast.success(`${response.message}` , {
         autoClose:2000
       })
@@ -56,11 +80,16 @@ const AllSlotsListing = () => {
                                     <span className='text-base font-bold'>SlotNumber: <span className='text-customPurple'>{individualDoc.slotNumber}</span></span>
                                     <span className='text-base font-bold'>StartTime: <span className='text-customPurple'>{individualDoc.startTime}</span></span>
                                     <span className='text-base font-bold'>EndTime: <span className='text-customPurple'>{individualDoc.endTime}</span></span>
-                                    <button className='pl-2 pr-2 pt-1 pb-1 bg-black text-white font-bold rounded-3xl text-sm hover:opacity-55 duration-300 ease-in-out z-50' disabled={individualDoc.reported} onClick={()=>handleReported(individualDoc._id)}>Reported</button>
+                                    <div className='flex gap-4'>
+                                      <button className='pl-2 pr-2 pt-1 pb-1 bg-black text-white font-bold rounded-3xl text-sm hover:opacity-55 duration-300 ease-in-out z-50' disabled={individualDoc.reported} onClick={()=>handleReported(individualDoc._id)}>Reported</button>
+                                      <button className='pl-2 pr-2 pt-1 pb-1 bg-black text-white font-bold rounded-3xl text-sm hover:opacity-55 duration-300 ease-in-out z-50' disabled={individualDoc.reported} onClick={()=>(handleNotReported(individualDoc._id))}>Not Reported</button>
+                                    </div>
                                     {
                                         individualDoc.reported ? (
                                             <img src={verifiedImage} alt="reported" className='absolute w-[150px] h-[148px] opacity-30'/>
-                                        ) : (null)
+                                        ) : (
+                                          <img src={notreportedImage} alt="notreported" className='absolute w-[150px] h-[117px] opacity-30'/>
+                                        )
                                     }
                                     {
                                         allSlotsLoading ? (

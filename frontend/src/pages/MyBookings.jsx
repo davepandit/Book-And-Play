@@ -4,8 +4,7 @@ import {Vortex} from 'react-loader-spinner'
 import { useSelector } from 'react-redux'
 import {toast} from 'react-toastify'
 import verifiedImage from '../assets/ikigai-green-check-mark-in-a-circle.png'
-
-
+import notreportedImage from '../assets/jelly-red-rectangle-with-white-cross.png'
 
 const MyBookings = () => {
   const {data:bookingsData , isLoading , refetch} = useGetMyBookingsQuery()
@@ -50,7 +49,9 @@ const MyBookings = () => {
                     {
                       individualDoc.reported ? (
                         <img src={verifiedImage} alt="reported" className='absolute w-[150px] h-[148px] opacity-30'/>
-                      ) : (null)
+                      ) : (
+                        <img src={notreportedImage} alt="notreported" className='absolute w-[150px] h-[117px] opacity-30'/>
+                      )
                     }
                   </div>
               ))

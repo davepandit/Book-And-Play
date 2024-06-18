@@ -52,9 +52,14 @@ const Availibility = () => {
             </div>
             <div className='mt-11 flex flex-col gap-3 pl-11 pr-11 place-items-center'>
               {
-                availibilityData.slots.map((slot , index)=>(
-                  <Card slotNumber={slot.slotNumber} startTime={slot.startTime} endTime={slot.endTime} availableTickets={slot.availableTickets} game={game} date={date} key={index}/>
-                ))
+                availibilityData ? (
+                  availibilityData.slots.map((slot , index)=>(
+                    <Card slotNumber={slot.slotNumber} startTime={slot.startTime} endTime={slot.endTime} availableTickets={slot.availableTickets} game={game} date={date} key={index}/>
+                  ))
+                ) : (
+                  <div className='mt-11 font-bold text-blue-400 text-3xl lg:text-5xl 2xl:text-7xl'>No slots Found</div>
+                )
+                
               }
             </div>
           </div>

@@ -101,8 +101,41 @@ export const markavailibilityHandler = async(req , res) => {
             new:true
         })
         res.status(201).json({
-            message:'Marked as reported',
-            candidateAvailiblity
+            message:'Marked as reported'
+        })
+    } catch (error) {
+        res.status(400).json({
+            message:error.message
+        })
+    }
+}
+
+
+export const markNotReportedHandler= async(req , res) => {
+    const bookingId = req.body._id
+    const creditsToReduce = 5
+    try {
+        const notReportedDoc = await Booking.findOne({
+            _id:bookingId
+        })
+        if(!notReportedDoc){
+            res.status(404).json({
+                message:'No bookings found'
+            })
+        }
+        //deduct the credits of the user who has booked the slots
+        const updatedCreditsUser = await User.findOneAndUpdate({
+            _id:notReportedDoc.user
+        },{
+            $inc: { credits: -creditsToReduce }
+        },{
+            new:true
+        })
+
+        res.status(201).json({
+            message:'Marked as not reported',
+            updatedCreditsUser
+            //this is sent to the frontend so that the local storage can be updated
         })
     } catch (error) {
         res.status(400).json({

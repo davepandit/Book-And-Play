@@ -29,9 +29,17 @@ const bookingSlice = apiSlice.injectEndpoints({
                 url:'/booking/getallBookings',
                 method:'GET'
             })
+        }),
+        //adminn functionality 
+        markNotReported:builder.mutation({
+            query:(data)=>({
+                url:'/booking/marknotreported',
+                method:'POST',
+                body:data
+            })
         })
 
     })
 })
 
-export const {useBookSlotMutation , useGetMyBookingsQuery , useMarkasReportedMutation , useGetallSlotsQuery} = bookingSlice
+export const {useBookSlotMutation , useGetMyBookingsQuery , useMarkasReportedMutation , useGetallSlotsQuery , useMarkNotReportedMutation} = bookingSlice
