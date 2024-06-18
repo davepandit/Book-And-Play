@@ -8,6 +8,7 @@ import MyBookings from './pages/MyBookings'
 import AddSlots from './pages/AddSlots'
 import SportsListing from './pages/SportsListing'
 import Availibility from './pages/Availibility'
+import AllSlotsListing from './pages/AllSlotsListing'
 import Error from './pages/Error'
 import {Routes , Route} from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
@@ -35,6 +36,7 @@ function App() {
         {/* here are the admin routes  */}
         <Route path='' element={<Admin />}>
           <Route path='/addslots' element={<AddSlots />}/>
+          <Route path='/allslotslisting' element={<AllSlotsListing />}/>
         </Route>
 
       </Routes>

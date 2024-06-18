@@ -8,7 +8,7 @@ const ContactUs = () => {
             
             {/* left section  */}
             <div className='flex flex-col gap-3 flex-start'>
-                <span className='text-black font-bold text-5xl lg:text-7xl whitespace-nowrap'>Contact Us📩</span>
+                <span className='text-black font-bold text-5xl lg:text-7xl '>Contact Us📩</span>
                 <span className=' font-bold opacity-55'>
                     Join this group and suggest iprovements, If you notice some bugs feel free to join and report 
                 </span>

@@ -96,14 +96,20 @@ const Home = () => {
             </div>
             {/* conditionaly to be rendered  */}
             {headerModal ? 
-            <div className='absolute top-[-27px] h-[300px] right-[11px] bg-red-500 text-white w-[200px] flex flex-col gap-5 z-50 rounded-lg items-center justify-center pl-3 pr-3 pt-2 pb-2 shadow-gray-900 shadow-md' ref={modalRef}>
+            <div className='absolute top-[-27px] h-[340px] right-[11px] bg-red-500 text-white w-[200px] flex flex-col gap-5 z-50 rounded-lg items-center justify-center pl-3 pr-3 pt-2 pb-2 shadow-gray-900 shadow-md' ref={modalRef}>
                     <Link to='/sportslisting'><span className='font-bold text-base block'>Events/Sports🏏</span></Link>
-                    <Link to='/mybookings'><span className='font-bold text-base block'>My Bookings🎫</span></Link>
+                    {
+                      userInfo && userInfo.isAdmin ? (
+                        <Link to='/allslotslisting'><span className='font-bold text-base block'>All Bookings🎫</span></Link>
+                      ) : (
+                        <Link to='/mybookings'><span className='font-bold text-base block'>My Bookings🎫</span></Link>
+                      )
+                    }
                     <a href="#about"><span className='font-bold text-base block' >About Us</span></a>
                     <a href="#contact"><span className='font-bold text-base block'>Contact Us</span></a>
                     {
                       userInfo && !userInfo.isAdmin ? (
-                        <div className="flex flex-col gap-3 justify-center items-center">
+                        <div className="flex flex-col gap-5 justify-center items-center">
                           <span className='font-bold text-base'>{userInfo.name.toUpperCase()}</span>
                           <span className="font-bold text-base" onClick={handleLogout}>
                             Logout
@@ -114,14 +120,25 @@ const Home = () => {
                           </span>
                         </div>
                       ) : (
-                        <Link to='/signup'><div className="flex justify-center items-center"><button className='font-bold text-base'>Sign Up</button></div></Link>
+                        null
                       )
                     }
                     {
                       userInfo && userInfo.isAdmin ? (
-                          <span className="font-bold text-base" onClick={handleAddSlots}>
-                            Add slots
+                          <div className="flex flex-col gap-5 justify-center items-center">
+                            <span className='font-bold text-base'>{userInfo.name.toUpperCase()}</span>
+                            <span className="font-bold text-base" onClick={handleAddSlots}>
+                              Add slots
+                            </span>
+                            <span className="font-bold text-base" onClick={handleLogout}>
+                            Logout
                           </span>
+                        </div>
+                      ) : null
+                    }
+                    {
+                      !userInfo ? (
+                        <Link to='/signup'><div className="flex justify-center items-center"><button className='font-bold text-base'>Sign Up</button></div></Link>
                       ) : null
                     }
                     

@@ -46,3 +46,67 @@ export const bookSlotHandler = async(req , res) => {
         })
     }
 }
+
+//get my bookings
+export const getMyBookings = async(req , res) => {
+    try {
+        //find the doc with the userid
+        const bookingDoc = await Booking.find({
+            user:req.user._id
+        })
+
+        if(bookingDoc.length == 0){
+            res.status(404).json({
+                message:'No bookings from your side'
+            })
+        }else{
+            res.status(200).json(bookingDoc)
+            //remember the returned value is an array not an object
+        }
+    } catch (error) {
+        res.status(400).json({
+            message:error.message
+        })
+    }
+}
+
+//admin route 
+export const getAllBookings= async(req , res) => {
+    try {
+        //find the the booking docs
+        const bookingDocs = await Booking.find({})
+        if(bookingDocs.length == 0){
+            res.status(404).json({
+                message:'No slots booked yet'
+        })
+        }else{
+            res.status(200).json(bookingDocs)
+        }
+    } catch (error) {
+        res.status(400).json({
+            message:error.message
+        })
+    }
+}
+
+//admin route
+export const markavailibilityHandler = async(req , res) => {
+    // the ground staff available will be having the power to toggle the field as reported or not based on which further credits will be deducted
+    //getting the bookingid from the body
+    const bookingId = req.body._id
+    try {
+        const candidateAvailiblity = await Booking.findOneAndUpdate({_id:bookingId},{
+            $set:{reported:true}
+        },{
+            new:true
+        })
+        res.status(201).json({
+            message:'Marked as reported',
+            candidateAvailiblity
+        })
+    } catch (error) {
+        res.status(400).json({
+            message:error.message
+        })
+    }
+}

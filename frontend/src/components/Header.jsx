@@ -39,7 +39,13 @@ const Header = () => {
         </div>
         <div className='flex gap-3 lg:gap-5 xl:gap-8 items-center'>
           <Link to='/sportslisting'><span className='hidden lg:block hover:text-gray-400 duration-300 ease-in-out hover:cursor-pointer'>Events/Sports🏏</span></Link>
-          <Link to='/mybookings'><span className='hidden lg:block hover:text-gray-400 duration-300 ease-in-out hover:cursor-pointer'>My Bookings🎫</span></Link>
+          {
+            userInfo && userInfo.isAdmin ? (
+              <Link to='/allslotslisting'><span className='hidden lg:block hover:text-gray-400 duration-300 ease-in-out hover:cursor-pointer'>All Bookings🎫</span></Link>
+            ) : (
+              <Link to='/mybookings'><span className='hidden lg:block hover:text-gray-400 duration-300 ease-in-out hover:cursor-pointer'>My Bookings🎫</span></Link>
+            )
+          }
           <a href="#about"><span className='hidden lg:block hover:text-gray-400 duration-300 ease-in-out hover:cursor-pointer'>About Us</span></a>
           <a href="#contact"><span className='hidden lg:block hover:text-gray-400 duration-300 ease-in-out hover:cursor-pointer'>Contact Us</span></a>
           {
