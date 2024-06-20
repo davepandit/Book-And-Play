@@ -21,14 +21,21 @@ const Card = ({slotNumber , startTime , endTime , availableTickets , game , date
     const bookSlotHandler = async() => {
         //send the slots number to the backend so that the available tickets field can be refreshed
         try {
+            //check for the credits before booking the slot
+            if(userInfo.credits < 5){
+                toast.error('You don\'t have sufficient credits',{autoClose:2000})
+                return
+            }
+
             const response = await bookSlot({
                 sportName:game,
                 credits:Number(userInfo.credits),
                 slotNumber:slotNumber,
-                availableTickets:Number(availableTickets),
+                availableTickets:Number(13),
                 startTime:startTime,
                 endTime:endTime,
-                date:date
+                date:date,
+                timeStamp:Date.now()
             }).unwrap()
             //update the state 
             dispatch(setNewCredits(Number(response.newCredits)))
@@ -37,7 +44,7 @@ const Card = ({slotNumber , startTime , endTime , availableTickets , game , date
                 autoClose:2000
             })
         } catch (error) {
-            toast.error(`${error.message}` , {
+            toast.error(`${error.data.message}` , {
                 autoClose:2000
             })
         }

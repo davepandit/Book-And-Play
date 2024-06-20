@@ -7,6 +7,7 @@ import gamesRouter from './routes/game.routes.js'
 import bookingRouter from './routes/booking.routes.js'
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
+import cron from 'node-cron';
 
 //connect to the database
 connectToDatabase()
@@ -39,6 +40,17 @@ app.get('/' , (req , res)=>(
 app.use('/api/users' , userRouter)
 app.use('/api/games' , gamesRouter)
 app.use('/api/booking' , bookingRouter)
+
+
+// Schedule task to run every Sunday at midnight
+cron.schedule('0 0 * * 0', async () => {
+    try {
+      await User.updateMany({}, { $set: { credits: 20 } });
+      console.log('Credits reset to 20 for all users');
+    } catch (error) {
+      console.error('Error resetting credits:', error);
+    }
+  });
 
 //server code
 app.listen(port , ()=>{
