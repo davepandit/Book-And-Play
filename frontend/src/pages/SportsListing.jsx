@@ -5,6 +5,7 @@ import ttImage from '../assets/3d-fluency-ping-pong.png'
 import {useNavigate} from 'react-router-dom'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
+import Label from '../components/Label'
 
 const SportsListing = () => {
     const [date , setDate] = useState()
@@ -25,6 +26,7 @@ const SportsListing = () => {
     }
   return (
     <>
+        <Label />
         <div className='bg-black'>
             {/* img section  */}
             <img src={heroImage} alt="hero image" className='w-full h-[230px] sm-768:h-[319px]  sm-820:h-[700px] lg:h-[700px] xl:h-screen opacity-30 bg-center bg-no-repeat bg-cover'/>

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { useAddSlotsMutation } from '../slice/gameSlice'
 import {Vortex} from 'react-loader-spinner'
+import Label from '../components/Label'
 
 
 const AddSlots = () => {
@@ -55,6 +56,7 @@ const AddSlots = () => {
 
   return (
     <>
+        <Label />
         <div className='mt-11 flex flex-col justify-center items-center mb-11'> 
             <div className='text-3xl lg:text-5xl 2xl:text-7xl font-bold whitespace-nowrap '>
                 Add Slots
