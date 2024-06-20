@@ -9,7 +9,6 @@ const userSchema = mongoose.Schema({
     mobileNumber:{
         type:Number,
         required:true,
-        default:8888888888,
         unique:true
     },
     //in the frontend the degree must be a dropdown so that the client can select his degree
@@ -25,7 +24,7 @@ const userSchema = mongoose.Schema({
     },
     isAdmin:{
         type:Boolean,
-        default:true
+        default:false
     },
     //this should also be a dropdown in the frontend
     passingYear:{

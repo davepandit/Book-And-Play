@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import * as Yup from 'yup'
 import signupImage from '../assets/3d-hygge-isometric-view-of-young-girl-and-man-working-at-office-desk-1.png'
 //importing the hooks from the RTK query 
 import { useGenerateOTPMutation , useSignupUserMutation } from '../slice/userSlice'
@@ -19,14 +20,43 @@ const SignUp = () => {
     const [passingYear , setPassingYear] = useState(2027)
     const [rollNumber , setRollNumber] = useState('')
     const [degree , setDegree] = useState('B.Tech')
-    const [mobileNumber , setMobileNumber] = useState()
+    const [mobileNumber , setMobileNumber] = useState('')
     const [otp , setOTP] = useState()
+    const [errors, setErrors] = useState({});
+    const [mobileNumberError , setMobileNumberError] = useState('')
 
     const [generateOTP , {isLoading:optLoading}] = useGenerateOTPMutation()
     const [signupUser , {isLoading:signupLoading}] = useSignupUserMutation()
 
+    //validation schema
+    const validationSchema = Yup.object().shape({
+        name: Yup.string().required('Name is required'),
+        passingYear: Yup.number().required('Passing Year is required'),
+        rollNumber: Yup.string().required('Roll Number is required').matches(/^[0-9]+[A-Z]+[0-9]+$/, 'Roll Number format doesnot match'),
+        degree: Yup.string().required('Degree is required'),
+        otp: Yup.number().when('showOTPBox', {
+          is: true,
+          then: Yup.number().required('OTP is required')
+        })
+      })
+
     const handleOTPGeneration = async() => {
         try {
+            //check if the mobile number is there or not
+            if(!mobileNumber){
+                setMobileNumberError('Mobile Number is required')
+                return 
+            }
+            if (mobileNumber.length !== 10) {
+                setMobileNumberError('Mobile Number must be exactly 10 digits')
+                return
+              }
+          
+              if (!/^\d{10}$/.test(mobileNumber)) {
+                setMobileNumberError('Mobile Number must contain only digits')
+                return
+              }
+
             //sending request to the backend to generate OTP
             const response = await generateOTP({mobileNumber:Number(mobileNumber)}).unwrap()
             setShowOTPBox(true)
@@ -36,21 +66,31 @@ const SignUp = () => {
                 autoClose:2000
             })
         } catch (error) {
-            toast.error(`${error.message}`,{
+            toast.error(`${error.message}`, {
                 autoClose:2000
-            })
+            })      
+                
         }
     }
     const handleSubmit = async(e) => {
         e.preventDefault()
         try {
+            //validate the fileds
+            await validationSchema.validate({
+                name,
+                passingYear,
+                rollNumber,
+                degree,
+                otp
+              }, { abortEarly: false })
+
             const response = await signupUser({
                 otp:Number(otp),
                 name:name,
-                mobileNumber:mobileNumber,
+                mobileNumber:Number(mobileNumber),
                 degree:degree,
                 rollNumber:rollNumber,
-                passingYear:passingYear
+                passingYear:Number(passingYear)
             }).unwrap()
             //setting the state to initial ones using formik can reduce all these efforts
             setName('')
@@ -65,11 +105,28 @@ const SignUp = () => {
             //navigate to the login page 
             navigate('/login')
         } catch (error) {
-            toast.error(`${error.message}`,{
-                autoClose:2000
-            })
+            // Handle Yup validation errors
+            if (error.name === 'ValidationError') {
+                const formattedErrors = {};
+                error.inner.forEach(err => {
+                    formattedErrors[err.path] = err.message;
+                });
+                console.log('formattedErrors:', formattedErrors)
+                setErrors(formattedErrors); // Assuming you have a state for errors
+                console.log('errors:', errors)
+            } else {
+                // Handle other errors (e.g., network errors, server errors)
+                toast.error(`${error.data.message}`, {
+                    autoClose: 2000
+                });
+            }
         }
     }
+
+    //to check the mobile number 
+    useEffect(()=>{
+        setMobileNumberError(false)
+    },[mobileNumber])
   return (
     <>
         <div className=' lg:bg-customPurple w-full h-screen flex justify-center lg:justify-between lg:pl-11 lg:pr-11 sm-2000:pl-28 sm-2000:pr-28 items-center'>
@@ -83,6 +140,8 @@ const SignUp = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4 ">
                         <input type="text" id="name" name='name' className="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="Name" value={name} onChange={(e)=>(setName(e.target.value))}/>
+                        {/* show the error mssg  */}
+                        {errors.name && <p className="text-red-600 font-bold">{errors.name}</p>}
                     </div>
                     <div className="mb-4 relative inline-block w-[350px] lg:w-[400px] xl:w-[500px] ">
                         <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent w-full" name='passingYear' value={passingYear} onChange={(e)=>(setPassingYear(e.target.value))}>
@@ -92,10 +151,12 @@ const SignUp = () => {
                             <option>2027</option>
                             <option>2028</option>
                         </select>
+                        {errors.passingYear && <p className="text-red-600 font-bold">{errors.passingYear}</p>}
                         
                     </div>
-                    <div className="mb-4 ">
+                    <div className="mb-4 flex flex-col">
                         <input type="text" id="rollnumber" name='rollNumber' className="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="rollNumber" value={rollNumber} onChange={(e)=>(setRollNumber(e.target.value))}/>
+                        {errors.rollNumber && <p className="text-red-600 font-bold">{errors.rollNumber}</p>}
                     </div>
                     <div className="mb-4 relative inline-block w-[350px] lg:w-[400px] xl:w-[500px]">
                         <select className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent w-full" name='degree' value={degree} onChange={(e)=>(setDegree(e.target.value))}>
@@ -104,15 +165,21 @@ const SignUp = () => {
                             <option>PHD</option>
                             <option>M.Tech</option>
                         </select>
+                        {errors.degree && <p className="text-red-600 font-bold">{errors.degree}</p>}
+
                     </div>
                     <div className="mb-4 ">
                         <input type="number" id="mobileNumber" name='mobileNumber' className="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="mobileNumber" value={mobileNumber} onChange={(e)=>(setMobileNumber(e.target.value))}/>
+                        {mobileNumberError && <p className="text-red-600 font-bold">{mobileNumberError}</p>}
+
                     </div>
                     {
                         showOTPBox ? (
                             <div className="mb-4 flex flex-col gap-3">
                                 <label htmlFor="otp" className='font-bold opacity-55'>Enter your OTP:</label>
                                 <input type="number" id="otp" name='otp' className="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent" placeholder="otp" value={otp} onChange={(e)=>(setOTP(e.target.value))}/>
+                                {errors.otp && <p className="text-red-600 font-bold">{errors.otp}</p>}
+
                             </div>
                         ) : null
                     }

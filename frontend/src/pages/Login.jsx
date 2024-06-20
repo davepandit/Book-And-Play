@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Yup from 'yup'
 import { useState } from 'react'
 import loginImage from '../assets/3d-hygge-isometric-view-of-colleagues-having-meeting.png'
 //import hooks provided by  rtk query 
@@ -13,6 +14,14 @@ import { useDispatch , useSelector } from 'react-redux'
 
 
 const Login = () => {
+
+    //validation schema
+    const validationSchema = Yup.object().shape({
+        rollNumber: Yup.string().required('Roll Number is required').matches(/^[0-9]+[A-Z]+[0-9]+$/, 'Roll Number format doesnot match'),
+        mobileNumber: Yup.string().required('Mobile Number is required').matches(/^[0-9]{10}$/, 'Mobile Number must be exactly 10 digits and contain only digits'),
+        })
+
+
     //usenavigate instance
     const navigate = useNavigate()
     //useDispatch instance
@@ -22,12 +31,19 @@ const Login = () => {
     //component level states
     const [rollNumber , setRollNumber] = useState('')
     const [mobileNumber , setMobileNumber] = useState()
+    const [errors, setErrors] = useState({});
 
     const [loginUser , {isLoading:loginLoading}] = useLoginUserMutation()
 
     const handleSubmit = async(e) => {
         e.preventDefault()
         try {
+            //validation result
+            await validationSchema.validate({
+                rollNumber,
+                mobileNumber
+              }, { abortEarly: false })
+
             const response = await loginUser({
                 mobileNumber:Number(mobileNumber),
                 rollNumber:rollNumber
@@ -38,9 +54,21 @@ const Login = () => {
             })
             navigate('/sportslisting')
         } catch (error) {
-            toast.error(`${error.message}` , {
-                autoClose:2000
-            })
+            // Handle Yup validation errors
+            if (error.name === 'ValidationError') {
+                const formattedErrors = {};
+                error.inner.forEach(err => {
+                    formattedErrors[err.path] = err.message;
+                });
+                console.log('formattedErrors:', formattedErrors)
+                setErrors(formattedErrors); // Assuming you have a state for errors
+                console.log('errors:', errors)
+            } else {
+                // Handle other errors (e.g., network errors, server errors)
+                toast.error('No such credentials exist', {
+                    autoClose: 2000
+                });
+            }
         }
     }
   return (
@@ -56,9 +84,13 @@ const Login = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4 ">
                         <input type="text" id="rollNumber" name='rollNumber' className="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent" placeholder="rollnumber" value={rollNumber} onChange={(e)=>(setRollNumber(e.target.value))}/>
+                        {errors.rollNumber && <p className="text-red-600 font-bold">{errors.rollNumber}</p>}
+
                     </div>
                     <div className="mb-4 ">
                         <input type="number" id="mobileNumber" name='mobileNumber' className="w-[350px] lg:w-[400px] xl:w-[500px] px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent" placeholder="mobileNumber" value={mobileNumber} onChange={(e)=>(setMobileNumber(e.target.value))}/>
+                        {errors.mobileNumber && <p className="text-red-600 font-bold">{errors.mobileNumber}</p>}
+
                     </div>
                     {
                         loginLoading ? (
