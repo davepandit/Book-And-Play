@@ -17,6 +17,8 @@ import { useLogoutUserMutation } from "../slice/userSlice";
 import {toast} from 'react-toastify'
 //remove user credentials from auth to remove from the global state and the local storage
 import { removeCredentials } from "../slice/authSlice";
+//faq component 
+import Faq from "../components/Faq";
 
 const Home = () => {
 
@@ -179,6 +181,9 @@ const Home = () => {
         </div>
         <div className="mt-16 lg:mt-20" id='contact'>
           <ContactUs />
+        </div>
+        <div className="mt-16 lg:mt-20" id='faq'>
+          <Faq />
         </div>
         <Footer />
     </>
