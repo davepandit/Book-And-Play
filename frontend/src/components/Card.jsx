@@ -27,7 +27,8 @@ const Card = ({slotNumber , startTime , endTime , availableTickets , game , date
                 slotNumber:slotNumber,
                 availableTickets:Number(availableTickets),
                 startTime:startTime,
-                endTime:endTime
+                endTime:endTime,
+                date:date
             }).unwrap()
             //update the state 
             dispatch(setNewCredits(Number(response.newCredits)))

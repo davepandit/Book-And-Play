@@ -37,9 +37,16 @@ const bookingSlice = apiSlice.injectEndpoints({
                 method:'POST',
                 body:data
             })
+        }),
+        cancelBooking:builder.mutation({
+            query:(data)=>({
+                url:'/booking/cancelbooking',
+                method:'POST',
+                body:data
+            })
         })
 
     })
 })
 
-export const {useBookSlotMutation , useGetMyBookingsQuery , useMarkasReportedMutation , useGetallSlotsQuery , useMarkNotReportedMutation} = bookingSlice
+export const {useBookSlotMutation , useGetMyBookingsQuery , useMarkasReportedMutation , useGetallSlotsQuery , useMarkNotReportedMutation , useCancelBookingMutation} = bookingSlice
