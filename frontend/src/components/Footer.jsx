@@ -3,6 +3,7 @@ import footerImage from '../assets/two-tickets-blue-front-view-isolated-white.pn
 import { FaInstagramSquare } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
+import {Link} from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -17,9 +18,9 @@ const Footer = () => {
           </div>
           {/* right section  */}
           <div className='flex gap-5 text-4xl'>
-            <FaInstagramSquare className='hover:text-pink-300 hover:cursor-pointer duration-300 ease-in-out'/>
-            <FaSquareXTwitter className='hover:opacity-55 hover:cursor-pointer duration-300 ease-in-out'/>
-            <FaLinkedin className='hover:text-blue-400 hover:cursor-pointer duration-300 ease-in-out'/>
+            <a href="https://www.instagram.com/codeninja0812/" target="_blank" rel="noopener noreferrer"><FaInstagramSquare className='hover:text-pink-300 hover:cursor-pointer duration-300 ease-in-out'/></a>
+            <a href="https://twitter.com/Davepandit0812" target="_blank" rel="noopener noreferrer"><FaSquareXTwitter className='hover:opacity-55 hover:cursor-pointer duration-300 ease-in-out'/></a>
+            <a href="https://www.linkedin.com/in/debajyoti-pandit-b921b327b" target="_blank" rel="noopener noreferrer"><FaLinkedin className='hover:text-blue-400 hover:cursor-pointer duration-300 ease-in-out'/></a>
           </div>
         </div>
         <div className='flex justify-center items-center mt-4 lg:mt-0'>
