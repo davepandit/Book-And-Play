@@ -112,7 +112,7 @@ const Home = () => {
                     {
                       userInfo && !userInfo.isAdmin ? (
                         <div className="flex flex-col gap-5 justify-center items-center">
-                          <span className='font-bold text-base'>{userInfo.name.toUpperCase()}</span>
+                          <Link to='/profile'><span className='font-bold text-base block'>{userInfo.name.toUpperCase()}</span></Link>
                           <span className="font-bold text-base" onClick={handleLogout}>
                             Logout
                           </span>
@@ -150,7 +150,7 @@ const Home = () => {
             {
               profileModal && userInfo ? (
                 <div className='hidden lg:flex absolute top-[-1px] right-[-40px] bg-red-500 text-white w-[200px] flex-col gap-5 z-50 rounded-lg items-center justify-center pl-3 pr-3 pt-2 pb-2 shadow-gray-900 shadow-md'>
-                  <span className='font-bold text-sm hover:cursor-pointer hover:opacity-55'>Profile</span>
+                  <Link to='/profile'><span className='font-bold text-sm hover:cursor-pointer hover:opacity-55 block'>Profile</span></Link>
                   <span className='font-bold text-sm hover:cursor-pointer hover:opacity-55' onClick={handleLogout}>Logout</span>
                   {
                     userInfo.isAdmin ? (

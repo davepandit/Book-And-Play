@@ -30,8 +30,15 @@ const userSlice = apiSlice.injectEndpoints({
                 url:'/users/logout',
                 method:'POST',
             })
+        }),
+        updateProfile:builder.mutation({
+            query:(data)=>({
+                url:'/users/updateprofile',
+                method:'PATCH',
+                body:data
+            })
         })
     })
 })
 
-export const {useGenerateOTPMutation , useSignupUserMutation , useLoginUserMutation , useLogoutUserMutation} = userSlice
+export const {useGenerateOTPMutation , useSignupUserMutation , useLoginUserMutation , useLogoutUserMutation , useUpdateProfileMutation} = userSlice

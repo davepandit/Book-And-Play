@@ -31,7 +31,7 @@ const Card = ({slotNumber , startTime , endTime , availableTickets , game , date
                 sportName:game,
                 credits:Number(userInfo.credits),
                 slotNumber:slotNumber,
-                availableTickets:Number(13),
+                availableTickets:Number(availableTickets),
                 startTime:startTime,
                 endTime:endTime,
                 date:date,

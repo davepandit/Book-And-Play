@@ -56,7 +56,7 @@ export const bookSlotHandler = async(req , res) => {
                 //this is a very interesting thinh to use the $(positional operator) here it particularly targets that ele in the slots array where the condition is met otherwise using the slots.availableTickets would simply modify all the element's slots.availableTickets in the slots array
             },{new:true , runValidators: true})
     
-            res.status(201).json({
+            return res.status(201).json({
                 message:'Your slot has been booked',
                 newCredits:updatedUser.credits
                 //sending the new credits so that there can be a slice in the frontend to update the global state credits variable using this credits value
@@ -65,17 +65,17 @@ export const bookSlotHandler = async(req , res) => {
 
         }
         if(timeDifference > 180){
-            res.status(400).json({
+            return res.status(400).json({
                 message:'Slot bookings have not started yet'
             })
         }else{
-            res.status(400).json({
+            return res.status(400).json({
                 message:'Slot can\'t be booked now'
             })
         }
         
     } catch (error) {
-        res.status(400).json({
+        return res.status(400).json({
             message:error.message
         })
     }

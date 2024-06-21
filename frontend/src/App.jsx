@@ -9,6 +9,7 @@ import AddSlots from './pages/AddSlots'
 import SportsListing from './pages/SportsListing'
 import Availibility from './pages/Availibility'
 import AllSlotsListing from './pages/AllSlotsListing'
+import Profile from './pages/Profile'
 import Error from './pages/Error'
 import {Routes , Route} from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
@@ -31,6 +32,7 @@ function App() {
         <Route path='' element={<Private />}>
           <Route path='/mybookings' element={<MyBookings />}/>
           <Route path='/availibility' element={<Availibility />}/>
+          <Route path='/profile' element={<Profile />}/>
         </Route>
 
         {/* here are the admin routes  */}

@@ -128,3 +128,47 @@ export const logoutUser= (req , res) => {
 
     res.status(200).json({message: 'User logged out successfully'})
 }
+
+//update profile
+export const updateProfileHandler = async(req , res) => {
+    const {userId , name , mobileNumber , degree , passingYear , rollNumber} = req.body
+    try {
+        //update the profile
+        //see whether such a profile exsits or not
+        const userExist = await User.findOne({_id:userId})
+        if(!userExist){
+            return res.status(404).json({
+                message:'User not found'
+            })
+        }else{
+            //update the user credentials
+            userExist.name = name,
+            userExist.mobileNumber = Number(mobileNumber),
+            userExist.degree = degree,
+            userExist.passingYear = Number(passingYear),
+            userExist.rollNumber = rollNumber
+
+            //save the upadte doc
+            await userExist.save()
+
+            return res.status(201).json({
+                message:'Updated details successfully',
+                updatedUserCredentials:{
+                    _id:userExist._id,
+                    name:userExist.name,
+                    mobileNumber:userExist.mobileNumber,
+                    degree:userExist.degree,
+                    rollNumber:userExist.rollNumber,
+                    isAdmin:userExist.isAdmin,
+                    passingYear:userExist.passingYear,
+                    credits:userExist.credits
+                }
+            })
+        }
+        //if yes then update otherwise let it go
+    } catch (error) {
+        res.status(400).json({
+            message:error.data.message
+        })
+    }
+}

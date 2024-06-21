@@ -111,9 +111,9 @@ const SignUp = () => {
                 error.inner.forEach(err => {
                     formattedErrors[err.path] = err.message;
                 });
-                console.log('formattedErrors:', formattedErrors)
+                // console.log('formattedErrors:', formattedErrors)
                 setErrors(formattedErrors); // Assuming you have a state for errors
-                console.log('errors:', errors)
+                // console.log('errors:', errors)
             } else {
                 // Handle other errors (e.g., network errors, server errors)
                 toast.error(`${error.data.message}`, {
