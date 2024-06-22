@@ -11,7 +11,6 @@ import {Vortex} from 'react-loader-spinner'
 import { setCredentials } from '../slice/authSlice'
 import { useDispatch , useSelector } from 'react-redux'
 import Meta from '../components/Meta'
-import Label from '../components/Label'
 
 
 
@@ -76,7 +75,6 @@ const Login = () => {
   return (
     <>
         <Meta title='Login' />
-        <Label />
         <div className=' lg:bg-customBlue w-full h-screen flex justify-center lg:justify-between lg:pl-11 lg:pr-11 sm-2000:pl-28 sm-2000:pr-28 items-center'>
             {/* left section  */}
             <img src={loginImage} alt="loginimage" className='w-[400px] h-[334px] 2xl:w-[600px] 2xl:h-[501px] hidden lg:block'/>
