@@ -1,6 +1,9 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import User from "../models/users.models.js"
 import OTP from "../models/otp.models.js"
 import jwt from 'jsonwebtoken';
+import { twilioClient } from '../index.js';
 
 //signup user
 export const signupUser = async(req , res) => {
@@ -58,11 +61,19 @@ export const generateOTP = async(req , res) => {
             otp:otp,
             mobileNumber:Number(mobileNumber)
         })
+
+        
         if(!generateOTP){
             res.status(400).json({
                 message:'OTP cannot be generated'
             })
         }else{
+            //send the message to the user's phone number 
+            await twilioClient.messages.create({
+                body:`Your Verification OTP is: ${otp}`,
+                to: `+91${mobileNumber}`,
+                from: process.env.TWILIO_PHONE_NUMBER
+            })
             res.status(201).json({
                 message:'OTP generated successfully',
                 otp:generatedOTP.otp

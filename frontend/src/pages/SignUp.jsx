@@ -60,13 +60,11 @@ const SignUp = () => {
             //sending request to the backend to generate OTP
             const response = await generateOTP({mobileNumber:Number(mobileNumber)}).unwrap()
             setShowOTPBox(true)
-            //this is going to be changed bcz otp will be sent to mobile number
-            setOTP(Number(response.otp))
             toast.success('OTP sent successfully', {
                 autoClose:2000
             })
         } catch (error) {
-            toast.error(`${error.message}`, {
+            toast.error(`Mobile number is either already used or the mobile number provided is wrong`, {
                 autoClose:2000
             })      
                 
