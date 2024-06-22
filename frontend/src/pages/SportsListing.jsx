@@ -6,6 +6,7 @@ import {useNavigate} from 'react-router-dom'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import Label from '../components/Label'
+import Meta from '../components/Meta'
 
 const SportsListing = () => {
     const [date , setDate] = useState()
@@ -26,6 +27,7 @@ const SportsListing = () => {
     }
   return (
     <>
+        <Meta title='Sports | Book Yours' />
         <Label />
         <div className='bg-black'>
             {/* img section  */}

@@ -9,6 +9,7 @@ import Card from '../components/Card';
 import { useSelector } from 'react-redux';
 import creditsImage from '../assets/3d-business-pile-of-five-golden-dollar-coins.png'
 import Label from '../components/Label';
+import Meta from '../components/Meta';
 
 
 
@@ -26,6 +27,7 @@ const Availibility = () => {
   const {data:availibilityData , isLoading , refetch} = useCheckAvailiblityQuery({game , date})
   return (
     <>
+      <Meta title='Availibility' />
       <Label />
       {
         isLoading ? (

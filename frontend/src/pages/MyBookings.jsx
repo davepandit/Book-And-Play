@@ -8,6 +8,7 @@ import notreportedImage from '../assets/jelly-red-rectangle-with-white-cross.png
 import { useCancelBookingMutation } from '../slice/bookingSlice'
 import { setNewCredits } from '../slice/authSlice'
 import Label from '../components/Label'
+import Meta from '../components/Meta'
 
 const MyBookings = () => {
   const {data:bookingsData , isLoading , refetch} = useGetMyBookingsQuery()
@@ -44,6 +45,7 @@ const MyBookings = () => {
   
   return (
     <>
+      <Meta title='My Bookings' />
       <Label />
       <div className='mt-7 flex flex-col gap-5 items-center pl-11 pr-11'>
         <div className='text-3xl lg:text-5xl 2xl:text-7xl font-bold text-center'>

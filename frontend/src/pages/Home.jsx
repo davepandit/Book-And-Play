@@ -19,6 +19,7 @@ import {toast} from 'react-toastify'
 import { removeCredentials } from "../slice/authSlice";
 //faq component 
 import Faq from "../components/Faq";
+import Meta from "../components/Meta";
 
 const Home = () => {
 
@@ -80,6 +81,7 @@ const Home = () => {
   }, [headerModal , dispatch]);
   return (
     <>
+      <Meta title='Home' />
       <div className="h-screen w-full dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
         {/* this is the header which is positioned as absolute  */}
         <div className="absolute top-[-10px] left-[50px] right-[50px] [mask-image:radial-gradient]">

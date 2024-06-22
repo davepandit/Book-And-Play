@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 import { useAddSlotsMutation } from '../slice/gameSlice'
 import {Vortex} from 'react-loader-spinner'
 import Label from '../components/Label'
+import Meta from '../components/Meta'
 
 
 const AddSlots = () => {
@@ -56,6 +57,7 @@ const AddSlots = () => {
 
   return (
     <>
+        <Meta title='Add Slots | Admin' />
         <Label />
         <div className='mt-11 flex flex-col justify-center items-center mb-11'> 
             <div className='text-3xl lg:text-5xl 2xl:text-7xl font-bold whitespace-nowrap '>
