@@ -220,7 +220,7 @@ const SignUp = () => {
                                     Generate OTP
                                 </button>
                                 <span>
-                                    <span className='font-bold text-sm opacity-55'>Already have an acoount </span><Link to='/login'><span className='underline hover:cursor-pointer hover:opacity-55'>Log In</span></Link>
+                                    <span className='font-bold text-sm opacity-55'>Already have an account </span><Link to='/login'><span className='underline hover:cursor-pointer hover:opacity-55'>Log In</span></Link>
                                 </span>
                             </div>
                         ) : (

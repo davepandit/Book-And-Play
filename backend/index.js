@@ -10,8 +10,9 @@ import cookieParser from 'cookie-parser';
 import cron from 'node-cron';
 import User from './models/users.models.js';
 import Booking from './models/booking.models.js';
-import twilio from 'twilio'
 import moment from 'moment';
+import twilio from 'twilio'
+
 
 //connect to the database
 connectToDatabase()
@@ -21,6 +22,12 @@ const app = express()
 
 //port
 const port = process.env.PORT
+
+//twilio setup
+const accountid = process.env.TWILIO_ACCOUNT_SID
+const authtoken = process.env.TWILIO_AUTH_TOKEN
+
+export const twilioClient = new twilio(accountid , authtoken)
 
 //cors options
 const corsOptions = {
@@ -45,11 +52,7 @@ app.use('/api/users' , userRouter)
 app.use('/api/games' , gamesRouter)
 app.use('/api/booking' , bookingRouter)
 
-//twilio setup
-const accountid = process.env.TWILIO_ACCOUNT_SID
-const authtoken = process.env.TWILIO_AUTH_TOKEN
 
-export const twilioClient = new twilio(accountid , authtoken)
 
 // Schedule task to run every Sunday at midnight
 cron.schedule('0 0 * * 0', async () => {
@@ -62,13 +65,13 @@ cron.schedule('0 0 * * 0', async () => {
   });
 
 //send message to the user 25 minutes before thier slot
-const sendMessageToUser = async(mobileNumber) => {
-  await twilioClient.messages.create({
-    body:`Your slot is starting in next 25 minutes. Please report 5 minutes earlier.`,
-    from:process.env.TWILIO_PHONE_NUMBER,
-    to:`+91${mobileNumber}`
-  })
-}
+// const sendMessageToUser = async(mobileNumber) => {
+//   await twilioClient.messages.create({
+//     body:`Your slot is starting in next 25 minutes. Please report 5 minutes earlier.`,
+//     from:process.env.TWILIO_PHONE_NUMBER,
+//     to:`+91${mobileNumber}`
+//   })
+// }
 // Schedule task to run every minute
 // cron.schedule('* * * * *', async() => {
 //   const currentTime = moment() //current time

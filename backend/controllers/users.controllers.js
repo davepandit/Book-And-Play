@@ -64,7 +64,7 @@ export const generateOTP = async(req , res) => {
 
         
         if(!generateOTP){
-            res.status(400).json({
+            return res.status(400).json({
                 message:'OTP cannot be generated'
             })
         }else{
@@ -74,13 +74,14 @@ export const generateOTP = async(req , res) => {
                 to: `+91${mobileNumber}`,
                 from: process.env.TWILIO_PHONE_NUMBER
             })
-            res.status(201).json({
+
+            return res.status(201).json({
                 message:'OTP generated successfully',
                 otp:generatedOTP.otp
             })
         }
     } catch (error) {
-        res.status(400).json({
+        return res.status(400).json({
             error:error.message
         })
     }
